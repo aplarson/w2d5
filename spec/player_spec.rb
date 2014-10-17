@@ -1,4 +1,4 @@
 require 'player.rb'
 
-class Player
+describe "Player" do
 end
