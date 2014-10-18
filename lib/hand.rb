@@ -87,17 +87,24 @@ class Hand
         return false
       end
     elsif hand_type == :two_pair
-      check_rank_frequencies
+      comp_card, opp_card = get_max_arg_freqs(other_hand)
+      comp_ranks = comp_card.keys.map { |rank| Card.ranks.index(rank) }
+      opp_ranks = opp_card.keys.map { |rank| Card.ranks.index(rank) }
+      return comp_ranks.min < opp_ranks.min
     else
-      hand_freqs = check_rank_frequencies
-      opp_freqs = other_hand.check_rank_frequencies
-      comp_card = hand_freqs.select { |rank, freq| freq == hand_freqs.values.max}
-      opp_card = opp_freqs.select { |rank, freq| freq == opp_freqs.values.max}
+      comp_card, opp_card = get_max_arg_freqs(other_hand)
       comp_rank = Card.ranks.index(comp_card.keys[0])
       opp_rank = Card.ranks.index(opp_card.keys[0])
       return comp_rank < opp_rank
     end
-    false
+  end
+  
+  def get_max_arg_freqs(other_hand)
+    hand_freqs = check_rank_frequencies
+    opp_freqs = other_hand.check_rank_frequencies
+    comp_card = hand_freqs.select { |rank, freq| freq == hand_freqs.values.max}
+    opp_card = opp_freqs.select { |rank, freq| freq == opp_freqs.values.max}
+    [comp_card, opp_card]
   end
   
   def hand_rank
