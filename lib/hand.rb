@@ -19,6 +19,10 @@ class Hand
   def discard_all
     @cards = []
   end
+
+  def length
+    @cards.length
+  end
   
   def hand_type
     rank_freqs = check_rank_frequencies.values

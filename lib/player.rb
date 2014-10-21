@@ -3,6 +3,7 @@ class Player
   def initialize
     @bankroll = 100
     @pot = 0
+    @hand = []
   end
   
   def discard(cards)
@@ -29,5 +30,10 @@ class Player
     @hand.discard_all
     @folded = true
     bet
+  end
+
+  def ante_up
+    @pot += 1
+    @bankroll -= 1
   end
 end
