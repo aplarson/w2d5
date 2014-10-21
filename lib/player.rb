@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :hand, :pot, :bankroll
+  attr_accessor :hand, :pot, :bankroll, :folded
   def initialize
     @bankroll = 100
     @pot = 0
@@ -26,7 +26,7 @@ class Player
   end
   
   def fold_bet(bet)
-    discard(@hand.cards)
+    @hand.discard_all
     @folded = true
     bet
   end

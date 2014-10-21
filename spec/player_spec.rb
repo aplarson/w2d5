@@ -58,12 +58,21 @@ describe "Player" do
       end
     end
     describe "takes a fold" do
+      before(:each) do
+        player.hand = Hand.new
+        player.hand.add_cards([Card.new(:spades, :seven), 
+                              Card.new(:hearts, :six), 
+                              Card.new(:diamonds, :seven), 
+                              Card.new(:clubs, :seven),
+                              Card.new(:diamonds, :six)])
+        player.hand
+      end
       before(:each) { player.fold_bet(5) }
       it "empties the players hand" do
         expect(player.hand.cards.length).to eq(0)
       end
       it "notes that the player has folded" do
-        expect(player.folded?).to be_true
+        expect(player.folded).to be_true
       end
       it "returns the bet it received" do
         expect(player.fold_bet(5)).to eq(5)
